@@ -1,0 +1,16 @@
+{
+  "name": "pokedex-server",
+  "version": "1.0.0",
+  "description": "pokedex",
+  "main": "index.js",
+  "author": "Oscar Sanabria",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^3.12.1",
+    "axios": "^1.5.1",
+    "graphql": "^16.8.1"
+  },
+  "scripts": {
+    "start": "nodemon src/index.js"
+  }
+}
