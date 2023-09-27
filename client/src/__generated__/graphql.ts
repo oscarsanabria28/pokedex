@@ -16,8 +16,22 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type Pokemon = {
+  __typename?: 'Pokemon';
+  name: Scalars['String']['output'];
+  url: Scalars['String']['output'];
+};
+
+export type Pokemons = {
+  __typename?: 'Pokemons';
+  next?: Maybe<Scalars['String']['output']>;
+  previous?: Maybe<Scalars['String']['output']>;
+  results?: Maybe<Array<Pokemon>>;
+};
+
 export type Query = {
   __typename?: 'Query';
+  pokemons: Pokemons;
   users?: Maybe<Array<Maybe<User>>>;
 };
 
@@ -28,10 +42,16 @@ export type User = {
   login?: Maybe<Scalars['String']['output']>;
 };
 
+export type GetPokemonsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPokemonsQuery = { __typename?: 'Query', pokemons: { __typename?: 'Pokemons', next?: string | null, previous?: string | null, results?: Array<{ __typename?: 'Pokemon', name: string, url: string }> | null } };
+
 export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetUsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id?: string | null, login?: string | null } | null> | null };
 
 
+export const GetPokemonsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPokemons"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pokemons"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"next"}},{"kind":"Field","name":{"kind":"Name","value":"previous"}},{"kind":"Field","name":{"kind":"Name","value":"results"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}}]} as unknown as DocumentNode<GetPokemonsQuery, GetPokemonsQueryVariables>;
 export const GetUsersDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUsers"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"users"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"login"}}]}}]}}]} as unknown as DocumentNode<GetUsersQuery, GetUsersQueryVariables>;

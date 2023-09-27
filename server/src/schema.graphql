@@ -1,0 +1,21 @@
+type User {
+  id: ID
+  login: String
+  avatar_url: String
+}
+
+type Pokemon {
+  name: String!
+  url: String!
+}
+
+type Pokemons {
+  next: String
+  previous: String
+  results: [Pokemon!]
+}
+
+type Query {
+  users: [User]
+  pokemons: Pokemons!
+}
