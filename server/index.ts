@@ -3,7 +3,9 @@ import axios from "axios";
 import fs from "fs";
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import getUserOrCreateIt from "./src/db/build_db.js";
+import getUserOrCreateIt from "./src/db/db_queries.js";
+import isFavorite from "./src/db/isFavoriteQuery.js";
+import setFavorite from "./src/db/setFavorite.js";
 
 const POKEMON_API = "https://pokeapi.co/api/v2/";
 const typeDefs = fs.readFileSync('./src/schema.graphql', 'utf8');
@@ -17,6 +19,13 @@ const getPokemonIdFromUrl = (url: string) : string => {
 }
 
 const resolvers = {
+  Mutation: {
+    setFavorite: async (parent, args, contextValue, info) => {
+      console.log(args);
+      const isFav = await setFavorite(args.userId, args.pokemonId, args.isFav);
+      return {isFav: !args.isFav};
+    },
+  },
   Query: {
     users: async () => {
       try {
@@ -49,18 +58,17 @@ const resolvers = {
     },
     pokemon: async (parent, args, contextValue, info) => {
       try {
+        console.log(args);
         const id = args.id;
         const url = POKEMON_API+"pokemon/"+id;
         console.log("url-"+url);
         const res = await axios.get(POKEMON_API+"pokemon/"+id);
         const pokemon = res.data;
-        console.log(pokemon.sprites.other.home.front_default);
-        console.log(pokemon.sprites.other['official-artwork'].front_default);
-
+        
         const user = await getUserOrCreateIt(args.userId);
-
         console.log("user in the server "+JSON.stringify(user));
-
+        const isFav = await isFavorite(args.userId, pokemon.id);
+      
         return {
           id: pokemon.id,
           name: pokemon.name,
@@ -78,6 +86,7 @@ const resolvers = {
               base_stat: stat.base_stat
             }
           }),
+          isFavorite: isFav
         }
 
       } catch (error) {

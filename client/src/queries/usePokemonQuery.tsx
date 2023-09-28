@@ -20,7 +20,8 @@ query GetPokemon($id: String!, $userId: String!) {
       stats {
         name,
         base_stat
-      }
+      },
+      isFavorite
     }
 }`);
 
@@ -30,7 +31,8 @@ const usePokemonQuery = (props: Props) => {
     const {id, userId} = props;
 
     const { loading, error, data } = useQuery(POKEMON_QUERY, {
-        variables: { id, userId }
+        variables: { id, userId },
+        fetchPolicy: "network-only"
       });
 
     return {

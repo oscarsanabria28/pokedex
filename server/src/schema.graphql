@@ -9,6 +9,7 @@ type Pokemon {
   name: String!
   base_experience: String
   image_url: String
+  isFavorite: Boolean
   abilities: [Ability]
   stats: [Stat]
 }
@@ -34,8 +35,16 @@ type PokemonsSearchResult {
   results: [PokemonResult!]
 }
 
+type FavPayload {
+  isFav: Boolean!
+}
+
 type Query {
   users: [User]
   pokemons: PokemonsSearchResult!
   pokemon(id: String!, userId: String!): Pokemon
+}
+
+type Mutation {
+  setFavorite(isFav: Boolean!, userId: String!, pokemonId: String!): FavPayload
 }

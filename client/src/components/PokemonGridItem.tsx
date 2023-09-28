@@ -50,7 +50,7 @@ const PokemonGridItem = (props: Props) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <FavoritePokemonIconButton isFavorite={true} id={pokemon.id} />
+                    <FavoritePokemonIconButton isFavorite={pokemon.isFavorite!} id={pokemon.id} userId={userId}/>
                 </CardActions>
             </Card>
         </Grid>
