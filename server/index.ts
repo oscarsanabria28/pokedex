@@ -63,11 +63,12 @@ const resolvers = {
         const res = await axios.get(POKEMON_API+"pokemon/"+id);
         const pokemon = res.data;
         console.log(pokemon.sprites.other.home.front_default);
+        console.log(pokemon.sprites.other['official-artwork'].front_default);
         return {
           id: pokemon.id,
           name: pokemon.name,
           base_experience:pokemon.base_experience,
-          image_url:pokemon.sprites.other.home.front_default,
+          image_url:pokemon.sprites.other.home.front_default || pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default,
           abilities:pokemon.abilities.map((ability) => {
             return {
               name: ability.ability.name,

@@ -35,7 +35,7 @@ const Pokemon = (props: Props) => {
     return (
         <Container maxWidth="sm">
             <Box sx={{ bgcolor: '#eeeeee', height: '100vh' }}>
-                <ImgStyled src={pokemon.image_url} alt='pokemon_background' />
+                {pokemon.image_url && <ImgStyled src={pokemon.image_url} alt='pokemon_background' />}
                 <Grid container>
                     <FavoritePokemonIconButton isFavorite={true} id={pokemon.id} />
                 </Grid>
