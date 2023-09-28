@@ -14,8 +14,9 @@ interface Props {
 const PokemonGridItem = (props: Props) => {
 
     const { id } = props;
+    const userId = localStorage.getItem('userUIID') || "";
 
-    const { loading, error, data } = usePokemonQuery({ id });
+    const { loading, error, data } = usePokemonQuery({ id, userId});
 
     if (loading) return <div>Loading ...</div>;
 

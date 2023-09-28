@@ -48,6 +48,7 @@ const Search = styled('div')(({ theme }) => ({
 
 interface Props {
     onChange(value?: string): void;
+    userId: string;
 }
 
 const TopBar = (props: Props) => {
@@ -67,6 +68,7 @@ const TopBar = (props: Props) => {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
+          <div>User logged: {props.userId}</div>
         </Toolbar>
       </AppBar>
     </Box>

@@ -1,20 +1,12 @@
-//const { ApolloServer, gql } = require("apollo-server");
-//const axios = require("axios");
-const POKEMON_API = "https://pokeapi.co/api/v2/";
+import db from "./src/db/conn.js";
 import axios from "axios";
-//import { readFile } from 'fs/promises';
 import fs from "fs";
-
-
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-/*
-const typeDefs = gql`
-  ${require('fs').readFileSync(require.resolve('./src/schema.graphql'), 'utf8')}
-`;
-*/
+import getUserOrCreateIt from "./src/db/build_db.js";
+
+const POKEMON_API = "https://pokeapi.co/api/v2/";
 const typeDefs = fs.readFileSync('./src/schema.graphql', 'utf8');
-//const content = await readFile('./file.json');
 
 const getPokemonIdFromUrl = (url: string) : string => {
   const parts = url.split("/");
@@ -64,6 +56,11 @@ const resolvers = {
         const pokemon = res.data;
         console.log(pokemon.sprites.other.home.front_default);
         console.log(pokemon.sprites.other['official-artwork'].front_default);
+
+        const user = await getUserOrCreateIt(args.userId);
+
+        console.log("user in the server "+JSON.stringify(user));
+
         return {
           id: pokemon.id,
           name: pokemon.name,

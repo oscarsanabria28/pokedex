@@ -37,5 +37,5 @@ type PokemonsSearchResult {
 type Query {
   users: [User]
   pokemons: PokemonsSearchResult!
-  pokemon(id: String!): Pokemon
+  pokemon(id: String!, userId: String!): Pokemon
 }
