@@ -9,9 +9,11 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { gql } from "../__generated__/";
+import { useQuery } from "@apollo/client";
 
 interface Props {
-    id: number;
+    id: string;
     name: string;
     description: string;
     baseExperience: number;
@@ -19,32 +21,68 @@ interface Props {
     isFavorite: boolean;
 }
 
+const POKEMON_QUERY = gql(`
+query GetPokemon($id: String!) {
+    pokemon(id: $id) {
+      id,
+      name,
+      base_experience,
+      image_url,
+      abilities {
+        name,
+        slot
+      },
+      stats {
+        name,
+        base_stat
+      }
+    }
+}`);
+
 const PokemonGridItem = (props: Props) => {
 
-    const {id, name, description, isFavorite} = props;
+    const {id, isFavorite} = props;
+
+    const { loading, error, data } = useQuery(POKEMON_QUERY, {
+        variables: { id }
+      });
+    
+    if (loading) return <div>Loading ...</div>;
+
+    if (error) return <div>{`Error! ${error.message}`}</div>;
+
+    const pokemon = data && data.pokemon ? data.pokemon : null;
+
+    if(!pokemon) {
+        return null;
+    }
 
     return (
         <Grid item xs={3} md={3}>
             <Card >
             <CardMedia
-                sx={{ height: 140 }}
-                image="https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png"
-                title={`${id}`}
+                sx={{ height: 140, backgroundSize: '40%' }}
+                image={pokemon.image_url}
+                title={`${pokemon.id}`}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                {name}
+                {pokemon.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                {description}
+                {pokemon.abilities && pokemon.abilities.map((ability) => {
+                    if(ability) {
+                        return <div>{ability.name} - {ability.slot}</div>
+                    }
+                    return null;
+                })}
                 </Typography>
             </CardContent>
             <CardActions>
                 <IconButton aria-label="add to favorites">
                     {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                </IconButton>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
+                </IconButton>        
+                <Button size="small">See details</Button>
             </CardActions>
             </Card>
         </Grid>

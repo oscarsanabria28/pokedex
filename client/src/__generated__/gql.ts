@@ -13,7 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\nquery GetPokemons {\n    pokemons {\n      next,\n      previous,\n      results {\n          name,\n          url\n      }\n    }\n}": types.GetPokemonsDocument,
+    "\nquery GetPokemons {\n    pokemons {\n      next,\n      previous,\n      results {\n          name,\n          id\n      }\n    }\n}": types.GetPokemonsDocument,
+    "\nquery GetPokemon($id: String!) {\n    pokemon(id: $id) {\n      id,\n      name,\n      base_experience,\n      image_url,\n      abilities {\n        name,\n        slot\n      },\n      stats {\n        name,\n        base_stat\n      }\n    }\n}": types.GetPokemonDocument,
     "\nquery GetUsers {\n    users {\n      id,\n      login\n    }\n}": types.GetUsersDocument,
 };
 
@@ -34,7 +35,11 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\nquery GetPokemons {\n    pokemons {\n      next,\n      previous,\n      results {\n          name,\n          url\n      }\n    }\n}"): (typeof documents)["\nquery GetPokemons {\n    pokemons {\n      next,\n      previous,\n      results {\n          name,\n          url\n      }\n    }\n}"];
+export function gql(source: "\nquery GetPokemons {\n    pokemons {\n      next,\n      previous,\n      results {\n          name,\n          id\n      }\n    }\n}"): (typeof documents)["\nquery GetPokemons {\n    pokemons {\n      next,\n      previous,\n      results {\n          name,\n          id\n      }\n    }\n}"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetPokemon($id: String!) {\n    pokemon(id: $id) {\n      id,\n      name,\n      base_experience,\n      image_url,\n      abilities {\n        name,\n        slot\n      },\n      stats {\n        name,\n        base_stat\n      }\n    }\n}"): (typeof documents)["\nquery GetPokemon($id: String!) {\n    pokemon(id: $id) {\n      id,\n      name,\n      base_experience,\n      image_url,\n      abilities {\n        name,\n        slot\n      },\n      stats {\n        name,\n        base_stat\n      }\n    }\n}"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

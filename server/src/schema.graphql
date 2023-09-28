@@ -5,17 +5,37 @@ type User {
 }
 
 type Pokemon {
+  id: String!
   name: String!
-  url: String!
+  base_experience: String!
+  image_url: String!
+  abilities: [Ability]
+  stats: [Stat]
 }
 
-type Pokemons {
+type Ability {
+  name: String
+  slot: String
+}
+
+type Stat {
+  name: String
+  base_stat: Int
+}
+
+type PokemonResult {
+  name: String!
+  id: String!
+}
+
+type PokemonsSearchResult {
   next: String
   previous: String
-  results: [Pokemon!]
+  results: [PokemonResult!]
 }
 
 type Query {
   users: [User]
-  pokemons: Pokemons!
+  pokemons: PokemonsSearchResult!
+  pokemon(id: String!): Pokemon
 }

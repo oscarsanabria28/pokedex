@@ -11,7 +11,7 @@ query GetPokemons {
       previous,
       results {
           name,
-          url
+          id
       }
     }
 }`);
@@ -34,9 +34,9 @@ const PokemonGrid = () => {
                 pokemons.map((pokemon) => {
                     return (
                         <Pokemon 
-                            id={1} 
+                            id={`${pokemon.id}`} 
                             name={pokemon.name} 
-                            description={pokemon.url}
+                            description={pokemon.id}
                             baseExperience={1000}
                             height={50}
                             isFavorite={true} 
