@@ -15,7 +15,6 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  mutation SetFavorite($isFav: Boolean!, $userId: String!, $pokemonId: String!) {\n    setFavorite(isFav: $isFav, userId: $userId, pokemonId: $pokemonId) {\n      isFav\n    }\n  }\n": types.SetFavoriteDocument,
     "\nquery GetPokemons {\n    pokemons {\n      next,\n      previous,\n      results {\n          name,\n          id\n      }\n    }\n}": types.GetPokemonsDocument,
-    "\nquery GetUsers {\n    users {\n      id,\n      login\n    }\n}": types.GetUsersDocument,
     "\nquery GetPokemon($id: String!, $userId: String!) {\n    pokemon(id: $id, userId: $userId) {\n      id,\n      name,\n      base_experience,\n      image_url,\n      abilities {\n        name,\n        slot\n      },\n      stats {\n        name,\n        base_stat\n      },\n      isFavorite\n    }\n}": types.GetPokemonDocument,
 };
 
@@ -41,10 +40,6 @@ export function gql(source: "\n  mutation SetFavorite($isFav: Boolean!, $userId:
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\nquery GetPokemons {\n    pokemons {\n      next,\n      previous,\n      results {\n          name,\n          id\n      }\n    }\n}"): (typeof documents)["\nquery GetPokemons {\n    pokemons {\n      next,\n      previous,\n      results {\n          name,\n          id\n      }\n    }\n}"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\nquery GetUsers {\n    users {\n      id,\n      login\n    }\n}"): (typeof documents)["\nquery GetUsers {\n    users {\n      id,\n      login\n    }\n}"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

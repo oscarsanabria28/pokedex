@@ -1,6 +1,6 @@
 import React from 'react';
-import PokemonGridItem from '../components/PokemonGridItem';
-import { gql } from "../__generated__/";
+import PokemonGridItem from './PokemonGridItem';
+import { gql } from "../__generated__";
 import Grid from '@mui/material/Grid';
 import { useQuery } from "@apollo/client";
 

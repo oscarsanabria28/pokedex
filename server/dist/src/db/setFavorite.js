@@ -1,17 +1,13 @@
 import db from "./conn.js";
 const setFavorite = async (userId, pokemonId, fav) => {
-    console.log();
     let collection = await db.collection("favoritesByUser");
     try {
         const keyId = userId + "-" + pokemonId;
         let query = { _id: keyId };
-        console.info("query isFavorite userId: " + userId + " keyId:" + keyId);
         let isFavorite = await collection.findOne(query);
-        console.info("isFavorite" + JSON.stringify(isFavorite));
         if (!isFavorite) {
-            console.info("creating fav");
             const inserted = await collection.insertOne({ _id: keyId, fav: fav });
-            console.info("updated" + JSON.stringify(inserted));
+            console.log(inserted);
         }
         else {
             console.info("updating fav");
@@ -20,11 +16,9 @@ const setFavorite = async (userId, pokemonId, fav) => {
                     fav: fav
                 }
             });
-            console.info("updated" + JSON.stringify(updated));
+            console.log(updated);
         }
-        console.info("finished setting fav");
-        let isFavorite2 = await collection.findOne(query);
-        console.info("isFavorite" + JSON.stringify(isFavorite2));
+        return await collection.findOne(query);
     }
     catch (error) {
         console.log(error);

@@ -12,33 +12,17 @@ const typeDefs = fs.readFileSync('./src/schema.graphql', 'utf8');
 
 const getPokemonIdFromUrl = (url: string) : string => {
   const parts = url.split("/");
-  console.log("parts:"+parts);
-  const id = parts[parts.length-2];
-  console.log("id:"+id);
-  return id;
+  return parts[parts.length-2];
 }
 
 const resolvers = {
   Mutation: {
     setFavorite: async (parent, args, contextValue, info) => {
-      console.log(args);
-      const isFav = await setFavorite(args.userId, args.pokemonId, args.isFav);
+      await setFavorite(args.userId, args.pokemonId, args.isFav);
       return {isFav: !args.isFav};
     },
   },
   Query: {
-    users: async () => {
-      try {
-        const users = await axios.get("https://api.github.com/users")
-        return users.data.map(({ id, login, avatar_url }) => ({
-          id,
-          login,
-          avatar_url,
-        }))
-      } catch (error) {
-        throw error
-      }
-    },
     pokemons: async () => {
       try {
         const pokemons = await axios.get(POKEMON_API+"pokemon")
@@ -58,15 +42,13 @@ const resolvers = {
     },
     pokemon: async (parent, args, contextValue, info) => {
       try {
-        console.log(args);
         const id = args.id;
         const url = POKEMON_API+"pokemon/"+id;
-        console.log("url-"+url);
+        
         const res = await axios.get(POKEMON_API+"pokemon/"+id);
         const pokemon = res.data;
         
         const user = await getUserOrCreateIt(args.userId);
-        console.log("user in the server "+JSON.stringify(user));
         const isFav = await isFavorite(args.userId, pokemon.id);
       
         return {

@@ -52,7 +52,7 @@ Version: 10.1.0
     ```bash
     npm start
     ```
-    The server should now be up and running on http://localhost:4000, allowing you to access the Pokédex in your web browser.
+    The server should now be up and running on http://localhost:4000, allowing you to test the backend server.
 
 3. ### Run the React App
 
@@ -81,3 +81,13 @@ You can change this user value in the local.storage setting a new value for the 
 #### Screenshot of the app
 
 ![Pokedex App](/assets/ss_home.png)
+![Pokedex App Search by Name](/assets/ss_home2.png)
+
+#### Next Steps For Improve
+
+- Add Tests
+- Improve the user favorite management
+- Separate all the queries in a proper directory
+- Create some scripts for automate the creation of the types
+- Add environment variables
+- Add pagination 

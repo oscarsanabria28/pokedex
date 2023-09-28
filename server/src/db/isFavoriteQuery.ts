@@ -6,9 +6,8 @@ const isFavorite = async (userId: string, pokemonId: string) => {
     try {
         const keyId= userId+ "-" +pokemonId;
         let query = { _id: keyId};
-        console.info("query isFavorite userId: "+ userId + " pokemonId:" + pokemonId);
         let isFavorite = await collection.findOne(query);
-        console.info("isFavorite"+ JSON.stringify(isFavorite));
+        
         if(!isFavorite) {
             return false;
         } 

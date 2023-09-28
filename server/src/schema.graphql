@@ -1,9 +1,3 @@
-type User {
-  id: ID
-  login: String
-  avatar_url: String
-}
-
 type Pokemon {
   id: String!
   name: String!
@@ -40,7 +34,6 @@ type FavPayload {
 }
 
 type Query {
-  users: [User]
   pokemons: PokemonsSearchResult!
   pokemon(id: String!, userId: String!): Pokemon
 }
