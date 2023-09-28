@@ -46,26 +46,26 @@ Version: 10.1.0
 
     ```bash
     cd pokedex/server
-
+    ```
     Then, start the server by running:
 
     ```bash
     npm start
-
+    ```
     The server should now be up and running on http://localhost:4000, allowing you to access the Pokédex in your web browser.
 
 3. ### Run the React App
 
-    Navigate to the "server" directory inside the cloned repository using the terminal:
+    Navigate to the "client" directory inside the cloned repository using the terminal:
 
     ```bash
     cd pokedex/client
-
+    ```
     Then, start the server by running:
 
     ```bash
     npm start
-
+    ```
     The Client App should now be up and running on http://localhost:3000, allowing you to access the Pokédex in your web browser.
 
 
