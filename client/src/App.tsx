@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import PokemonGrid from './pages/pokemon-grid'
+import Home from './pages/Home';
 
 function App() {
   return (
     <div className="App">
-      <PokemonGrid />
+      <Home />
     </div>
   );
 }

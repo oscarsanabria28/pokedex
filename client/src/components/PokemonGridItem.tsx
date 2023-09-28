@@ -4,48 +4,18 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { gql } from "../__generated__/";
-import { useQuery } from "@apollo/client";
+import usePokemonQuery from '../queries/usePokemonQuery';
+import FavoritePokemonIconButton from './FavoriteIconButton';
 
 interface Props {
     id: string;
-    name: string;
-    description: string;
-    baseExperience: number;
-    height: number;
-    isFavorite: boolean;
 }
-
-const POKEMON_QUERY = gql(`
-query GetPokemon($id: String!) {
-    pokemon(id: $id) {
-      id,
-      name,
-      base_experience,
-      image_url,
-      abilities {
-        name,
-        slot
-      },
-      stats {
-        name,
-        base_stat
-      }
-    }
-}`);
-
 const PokemonGridItem = (props: Props) => {
 
-    const {id, isFavorite} = props;
+    const {id} = props;
 
-    const { loading, error, data } = useQuery(POKEMON_QUERY, {
-        variables: { id }
-      });
+    const { loading, error, data } = usePokemonQuery({id});
     
     if (loading) return <div>Loading ...</div>;
 
@@ -58,7 +28,7 @@ const PokemonGridItem = (props: Props) => {
     }
 
     return (
-        <Grid item xs={3} md={3}>
+        <Grid item xs={3} md={3} lg={3}>
             <Card >
             <CardMedia
                 sx={{ height: 140, backgroundSize: '40%' }}
@@ -79,10 +49,7 @@ const PokemonGridItem = (props: Props) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <IconButton aria-label="add to favorites">
-                    {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                </IconButton>        
-                <Button size="small">See details</Button>
+                <FavoritePokemonIconButton isFavorite={true} id={pokemon.id}/>      
             </CardActions>
             </Card>
         </Grid>

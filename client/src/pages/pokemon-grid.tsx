@@ -1,5 +1,5 @@
 import React from 'react';
-import Pokemon from './pokemon';
+import PokemonGridItem from '../components/PokemonGridItem';
 import { gql } from "../__generated__/";
 import Grid from '@mui/material/Grid';
 import { useQuery } from "@apollo/client";
@@ -28,18 +28,13 @@ const PokemonGrid = () => {
 
 
     return (
-        <Grid container >
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 8}}>
 
             {
                 pokemons.map((pokemon) => {
                     return (
-                        <Pokemon 
+                        <PokemonGridItem 
                             id={`${pokemon.id}`} 
-                            name={pokemon.name} 
-                            description={pokemon.id}
-                            baseExperience={1000}
-                            height={50}
-                            isFavorite={true} 
                         />  
                     );
                 })
